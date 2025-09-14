@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class HelloController extends Controller
 {
@@ -11,6 +12,8 @@ class HelloController extends Controller
         $a = [1, 2, 5, 6, 2];
 
         $randomValue = Arr::random($a);
+
+        $str = Str::of('abc')->toString();
 
         //info($a);
         //dd($a);
