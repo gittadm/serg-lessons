@@ -88,6 +88,6 @@ class FormController extends Controller
 //        dd($request->ip());
 //        dd($request->all());
 
-        return redirect()->route('form.show')->with('message', 'Спасибо!');
+        return redirect()->route('form.show')->with('message', ['x' => 1]);
     }
 }

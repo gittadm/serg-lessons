@@ -17,6 +17,7 @@
             <input type="checkbox" name="is_quickly" value="1"> Срочно<br><br>
             <button type="submit">Отправить</button>
         </form>
-        <p>{{ session('message') }}</p>
+        {{ session('message')['x'] ?? '' }}
+
     </body>
 </html>
