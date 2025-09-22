@@ -4,6 +4,7 @@ use App\Http\Controllers\CarbonController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\InvokeController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -58,8 +59,9 @@ Route::resource('users', UserController::class)->only([
 //
 //Route::post('save/users', [, 'saveNewUser'])->name('save.new.users')
 
-
-
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('questions', [QuestionController::class, 'index'])->name('questions.index');
+
