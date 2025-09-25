@@ -7,8 +7,15 @@
     </head>
     <body>
 
+    <p><a href="{{ route('questions.create') }}">Добавить вопрос</a></p>
+
     @foreach($questions as $question)
-        {{ $question->id }} | {{ $question->name }} <br>
+        {{ $question->id }} | {{ $question->name }} | {{ $question->description }}
+        <a href="{{ route('questions.show', [$question->id]) }}">Посмотреть</a>
+        <br>
     @endforeach
+
+{{--    {{ $question?->id }}--}}
+{{--    {{ empty($question) ? '' : $question->id }}--}}
     </body>
 </html>
