@@ -6,13 +6,15 @@
         <title>Hello</title>
     </head>
     <body>
+    <h3>Редактирование Вопрос #{{ $question->id }}</h3>
     @foreach ($errors->all() as $message)
         {{ $message }}
     @endforeach
-    <form method="post" action="{{ route('questions.store') }}">
+    <form method="post" action="{{ route('questions.update', [$question->id]) }}">
         @csrf
-        <p><input type="text" name="name" value="{{ old('name', 'Петя') }}" autocomplete="off"></p>
-        <p><textarea name="description">{{ old('description', 'Тестовое описание') }}</textarea></p>
+        @method('put')
+        <p><input type="text" name="name" value="{{ old('name', $question->name) }}" autocomplete="off"></p>
+        <p><textarea name="description">{{ old('description', $question->description) }}</textarea></p>
         <p><select name="phone">
                 <option value="+343434343111" @if(old('phone') == "+343434343111") selected @endif>+343434343111</option>
                 <option value="+34343434388" @if(old('phone', "+34343434388") == "+34343434388") selected @endif>+343434343888</option>
@@ -20,7 +22,7 @@
             </select>
         </p>
         <p>
-            <input type="checkbox" name="is_quick" value="1" @if(old('is_quick') == "1") checked @endif> Срочно
+            <input type="checkbox" name="is_quick" value="1" @if(old('is_quick', $question->is_quick) == "1") checked @endif> Срочно
         </p>
         <p><button type="submit">Сохранить</button></p>
     </form>

@@ -35,7 +35,7 @@ class Question extends Model
     // public $timestamps = false;
     use HasFactory;
 
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'is_quick', 'phone'];
 
     // protected $guarded = ['id']; // вместе с fillable нельзя!
 }

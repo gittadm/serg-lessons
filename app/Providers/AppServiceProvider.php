@@ -21,5 +21,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Route::pattern('id', '[0-9]+');
+
+        if (app()->isLocal()) {
+//            Model::preventAccessingMissingAttributes(); // не существующие атрибуты в таблице
+//            Model::preventSilentlyDiscardingAttributes(); // передача лишних данных не указанных в filliable
+//            Model::shouldBeStrict(); // врубаем сразу все 3 жестких защиты
+        }
     }
 }

@@ -68,4 +68,6 @@ Route::get('questions/{id}', [QuestionController::class, 'show'])->name('questio
 Route::get('questions/create', [QuestionController::class, 'create'])->name('questions.create');
 Route::post('questions', [QuestionController::class, 'store'])->name('questions.store');
 Route::get('questions/{id}/edit', [QuestionController::class, 'edit'])->name('questions.edit');
-
+Route::put('questions/{id}', [QuestionController::class, 'update'])->name('questions.update');
+// Route::delete('questions/{id}', [QuestionController::class, 'destroy'])->name('questions.destroy');
+Route::get('questions/{id}/delete', [QuestionController::class, 'destroy'])->name('questions.destroy');

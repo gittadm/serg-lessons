@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Question\StoreRequest;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class QuestionController extends Controller
 {
@@ -53,18 +53,20 @@ class QuestionController extends Controller
         return view('questions.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|min:2|max:40',
-            'description' => ['required', 'min:5'],
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->route('questions.create')
-                ->withErrors($validator)
-                ->withInput();
-        }
+//        $validator = Validator::make($request->all(), [
+//            'name' => 'required|string|min:2|max:40',
+//            'description' => ['required', 'min:5'],
+//            'phone' => 'string',
+//            'is_quick' => 'integer',
+//        ]);
+//
+//        if ($validator->fails()) {
+//            return redirect()->route('questions.create')
+//                ->withErrors($validator)
+//                ->withInput();
+//        }
 
         //dd($request->all());
 
@@ -93,8 +95,63 @@ class QuestionController extends Controller
         // $question = Question::create($request->all());
 
         // $question = Question::create($request->except('_token'));
-        $question = Question::create($validator->validated());
+        $question = Question::create($request->validated());
         return redirect()->route('questions.show', [$question->id])
             ->with('message', 'Данные сохранены');
+    }
+
+    public function edit(int $id)
+    {
+        $question = Question::findOrFail($id);
+        return view('questions.edit', compact('question'));
+    }
+
+    public function update(int $id, Request $request)
+    {
+        $question = Question::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|min:2|max:40',
+            'description' => ['required', 'min:5'],
+            'phone' => 'string',
+            'is_quick' => 'integer',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('questions.edit', [$question->id])
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        //dd($request->all());
+
+//        $question->update([
+//            'name' => $request->name,
+//            //...
+//        ]);
+
+        $data = $validator->validated();
+
+        if (empty($data['is_quick'])) {
+            $data['is_quick'] = 0;
+        }
+
+        $question->update($data);
+
+        // Question::where('id', $id)->update($request->validated());
+
+        return redirect()->route('questions.edit', [$question->id])
+            ->with('message', 'Данные сохранены');
+    }
+
+    public function destroy(int $id)
+    {
+//        $question = Question::findOrFail($id);
+//        $question->delete();
+
+        Question::where('id', $id)->delete();
+
+        return redirect()->route('questions.index')
+            ->with('message', 'Вопрос удален');
     }
 }
