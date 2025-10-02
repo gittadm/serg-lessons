@@ -13,6 +13,12 @@ class QuestionController extends Controller
     {
         $questions = Question::all();
         $questions = Question::get();
+        $questions = Question::withTrashed()->get();
+        $questions = Question::onlyTrashed()->get();
+        //Question::onlyTrashed()->restore();
+        //Question::where('id', 1)->forceDelete();
+        //Question::create([]);
+        //Question::forceCreate([]); // без fillable
         $questions = Question::query()->orderBy('id', 'desc')->get();
         // where('count', '<', 100) // <,>, !=, <=
         $questions = Question::where('email', 'email@email.ru')
