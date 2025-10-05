@@ -4,6 +4,7 @@ use App\Http\Controllers\CarbonController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\InvokeController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -71,3 +72,5 @@ Route::get('questions/{id}/edit', [QuestionController::class, 'edit'])->name('qu
 Route::put('questions/{id}', [QuestionController::class, 'update'])->name('questions.update');
 // Route::delete('questions/{id}', [QuestionController::class, 'destroy'])->name('questions.destroy');
 Route::get('questions/{id}/delete', [QuestionController::class, 'destroy'])->name('questions.destroy');
+
+Route::get('landing', [LandingController::class, 'index'])->name('landing.index');

@@ -11,6 +11,9 @@ class QuestionController extends Controller
 {
     public function index()
     {
+        $question = Question::orderBy('id')->first();
+        dd($question->short_description);
+
         $questions = Question::all();
         $questions = Question::get();
         $questions = Question::withTrashed()->get();

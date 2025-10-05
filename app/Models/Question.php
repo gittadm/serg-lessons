@@ -45,6 +45,11 @@ class Question extends Model
 
     protected $fillable = ['name', 'description', 'is_quick', 'phone'];
 
+    protected $casts = [
+        'is_quick' => 'boolean',
+        'closed_at' => 'datetime',
+    ];
+
     public function prunable(): Builder
     {
         // php artisan model:prune
@@ -53,4 +58,9 @@ class Question extends Model
     }
 
     // protected $guarded = ['id']; // вместе с fillable нельзя!
+
+    public function getShortDescriptionAttribute()
+    {
+        return $this->description . '!!!!!';
+    }
 }
