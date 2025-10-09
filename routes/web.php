@@ -74,3 +74,7 @@ Route::put('questions/{id}', [QuestionController::class, 'update'])->name('quest
 Route::get('questions/{id}/delete', [QuestionController::class, 'destroy'])->name('questions.destroy');
 
 Route::get('landing', [LandingController::class, 'index'])->name('landing.index');
+Route::get('landing/about', [LandingController::class, 'about'])->name('landing.about');
+Route::get('landing/contacts', [LandingController::class, 'contacts'])->name('landing.contacts');
+Route::post('landing/contacts', [LandingController::class, 'storeContacts'])->name('landing.contacts.store');
+Route::get('landing/blog/{slug}', [LandingController::class, 'showArticle'])->name('landing.article');
