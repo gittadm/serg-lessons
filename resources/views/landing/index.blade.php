@@ -5,7 +5,7 @@
 @endsection
 
 @section('css2')
-{{--    <link href="{{ asset("land/css/styles.css") }}" rel="stylesheet" />--}}
+    {{--    <link href="{{ asset("land/css/styles.css") }}" rel="stylesheet" />--}}
     <style>
         /*h2.post-title {*/
         /*    color: red;*/
@@ -50,11 +50,27 @@
                             </p>
                         </div>
                         <!-- Divider-->
-                        <hr class="my-4" />
+                        <hr class="my-4"/>
                     @endforeach
                 @endif
-                <!-- Pager-->
-                <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+                @if($paginationNextPage > 2)
+                    <div class="d-flex mb-4"><a class="btn btn-primary text-uppercase"
+                                                href="{{ route('landing.index', ['page' => $paginationNextPage - 2]) }}"><-
+                            Newer
+                            Posts</a></div>
+                @endif
+
+                @for($i = 1; $i < $paginationNextPage; $i++)
+                    <a class="btn btn-primary text-uppercase"
+                       href="{{ route('landing.index', ['page' => $i]) }}">{{ $i }}</a>
+                @endfor
+
+                @if($isPaginationNext)
+                    <!-- Pager-->
+                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase"
+                                                                    href="{{ route('landing.index', ['page' => $paginationNextPage]) }}">Older
+                            Posts →</a></div>
+                @endif
             </div>
         </div>
     </div>
