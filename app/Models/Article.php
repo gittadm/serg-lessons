@@ -34,4 +34,9 @@ class Article extends Model
     {
         return Str::limit($this->description, Article::SHORT_DESCRIPTION_LENGTH);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

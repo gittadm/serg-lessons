@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class FormController extends Controller
 {
@@ -83,10 +84,11 @@ class FormController extends Controller
 
     public function store(Request $request)
     {
-//        dd($request->input('address', '111'));
-//        dd($request->address);
-//        dd($request->ip());
-//        dd($request->all());
+        Validator::make($request->all(), [
+            'captcha' => 'required|captcha'
+        ])->validate();
+
+        dd('+++');
 
         return redirect()->route('form.show')->with('message', ['x' => 1]);
     }

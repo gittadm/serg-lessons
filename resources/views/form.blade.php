@@ -7,6 +7,9 @@
     </head>
     <body>
         <h1>Form</h1>
+        @foreach ($errors->all() as $message)
+            {{ $message }}
+        @endforeach
         <form method="post" action="{{ route('form.store') }}">
             @csrf
             <input type="text" name="address" required><br><br>
@@ -15,6 +18,10 @@
                 <option>Type 2</option>
             </select><br><br>
             <input type="checkbox" name="is_quickly" value="1"> Срочно<br><br>
+            <p>
+                {!! captcha_img('flat') !!}
+            </p>
+            <input type="text" name="captcha">
             <button type="submit">Отправить</button>
         </form>
         {{ session('message')['x'] ?? '' }}

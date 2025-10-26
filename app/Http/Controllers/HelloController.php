@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
+use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
@@ -9,6 +11,26 @@ class HelloController extends Controller
 {
     public function show()
     {
+        $user = User::findOrFail(1);
+        // $articles = Article::where('user_id', $user->id)->get();
+
+        $articles = $user->articles; // без ()
+
+        $article = Article::findOrFail(1);
+        $userName = $article->user->name;
+
+        dd($userName);
+        //
+
+        //$articles = Article::all();
+
+        dump($user);
+        dd($articles);
+
+        return 1;
+
+        /// ------------------------------------
+        ///
         $a = [1, 2, 5, 6, 2];
 
         $randomValue = Arr::random($a);
