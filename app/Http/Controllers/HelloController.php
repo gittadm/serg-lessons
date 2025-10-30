@@ -5,12 +5,51 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\User;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 class HelloController extends Controller
 {
     public function show()
     {
+        // Session::forget('views');
+
+        // session()->forget('views');
+
+        if (session()->exists('views')) {
+            // session(['views' => session('views') + 1]);
+            session()->increment('views', 10);
+        } else {
+            session(['views' => 1]);
+        }
+
+        session(['users' => []]);
+        //$users = session('users');
+
+        session()->push('users', ['name' => 'Petr', 'year' => 2000, 'products' => [1, 3]]);
+        session()->push('users', ['name' => 'Ivan', 'year' => 2001, 'products' => [1, 3]]);
+
+        session()->push('users.1.products', 10);
+
+        //session(['users' => $users]);
+        dd(session('users'));
+
+        //dd(session('views'));
+
+        $views = session('views');
+
+        // 30/10/25
+
+        //$articles = Article::whereNotNull('user_id')->orderBy('id')->get();
+
+        // 'user.cars' - вложенные связи
+        $articles = Article::with('user')
+            ->whereNotNull('user_id')->orderBy('id')->get();
+
+        return view('relations', compact('articles', 'views'));
+
+        // ------------------------------------------
+
         $user = User::findOrFail(1);
         // $articles = Article::where('user_id', $user->id)->get();
 
