@@ -10,6 +10,11 @@ use Illuminate\Support\Str;
 
 class HelloController extends Controller
 {
+    public function only()
+    {
+        return 'secret';
+    }
+
     public function show()
     {
         // Session::forget('views');

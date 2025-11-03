@@ -78,3 +78,12 @@ Route::get('landing/about', [LandingController::class, 'about'])->name('landing.
 Route::get('landing/contacts', [LandingController::class, 'contacts'])->name('landing.contacts');
 Route::post('landing/contacts', [LandingController::class, 'storeContacts'])->name('landing.contacts.store');
 Route::get('landing/blog/{slug}', [LandingController::class, 'showArticle'])->name('landing.article');
+
+Auth::routes(['reset' => false]);
+// Auth::routes(['register' => true, 'reset' => false, 'verify' => false, 'confirm' => false]);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['middleware' => ['auth', 'old-user']], function () {
+    Route::get('only-for-auth-users', [HelloController::class, 'only'])->name('secret');
+});
